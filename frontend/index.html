@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Buen Café, Gran Café</title>
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <div class="brand">Buen Café, Gran Café</div>
+        <div id="auth-box" class="auth-box"></div>
+      </header>
+
+      <main class="layout">
+        <section class="brew-panel">
+          <div class="stats">
+            <div class="coins" id="coins-display">0</div>
+            <div class="stat-line" id="rate-display">+0 monedas/seg</div>
+          </div>
+
+          <button id="brew-button" class="brew-button" type="button" aria-label="Preparar café">
+            Preparar café
+          </button>
+
+          <p class="hint">Fuerza de clic: <span id="click-power-display">1</span></p>
+        </section>
+
+        <section class="shop-panel">
+          <h2>Mejoras</h2>
+          <div id="shop-list" class="shop-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
