@@ -8,8 +8,11 @@ class Settings(BaseSettings):
 
     supabase_url: str
     supabase_service_role_key: str
-    supabase_jwt_secret: str
     allowed_origins: str = "http://localhost:5173"
+
+    @property
+    def supabase_jwks_url(self) -> str:
+        return f"{self.supabase_url}/auth/v1/.well-known/jwks.json"
 
     @property
     def allowed_origins_list(self) -> list[str]:

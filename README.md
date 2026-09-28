@@ -85,9 +85,14 @@ a mano.
 4. Tomar de **Project Settings → API**:
    - `Project URL` → `SUPABASE_URL` / `VITE_SUPABASE_URL`
    - `anon public` key → `VITE_SUPABASE_ANON_KEY`
-   - `service_role` key → `SUPABASE_SERVICE_ROLE_KEY` (solo backend, nunca
+   - `service_role` key (o `Secret key`, en proyectos con el sistema nuevo
+     de API keys) → `SUPABASE_SERVICE_ROLE_KEY` (solo backend, nunca
      exponerla en el frontend)
-   - `JWT Secret` → `SUPABASE_JWT_SECRET`
+
+El backend valida el JWT de cada request contra el JWKS público del
+proyecto (`<SUPABASE_URL>/auth/v1/.well-known/jwks.json`), así que no hay
+que copiar ningún secreto de JWT — funciona igual con el "Legacy JWT
+Secret" (HS256) o con las "JWT signing keys" nuevas (ES256/RS256).
 
 ## Deploy
 

@@ -3,6 +3,8 @@ from fastapi import Header, HTTPException, status
 
 from app.core.config import get_settings
 
+_jwks_clients: dict[str, jwt.PyJWKClient] = {}
+
 
 class CurrentUser:
     def __init__(self, user_id: str, email: str | None):
@@ -10,18 +12,27 @@ class CurrentUser:
         self.email = email
 
 
+def _get_jwks_client() -> jwt.PyJWKClient:
+    jwks_url = get_settings().supabase_jwks_url
+    client = _jwks_clients.get(jwks_url)
+    if client is None:
+        client = jwt.PyJWKClient(jwks_url)
+        _jwks_clients[jwks_url] = client
+    return client
+
+
 def get_current_user(authorization: str = Header(default="")) -> CurrentUser:
     if not authorization.startswith("Bearer "):
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Falta el token de autenticación")
 
     token = authorization.removeprefix("Bearer ").strip()
-    settings = get_settings()
 
     try:
+        signing_key = _get_jwks_client().get_signing_key_from_jwt(token)
         payload = jwt.decode(
             token,
-            settings.supabase_jwt_secret,
-            algorithms=["HS256"],
+            signing_key.key,
+            algorithms=["ES256", "RS256"],
             audience="authenticated",
         )
     except jwt.PyJWTError as exc:
