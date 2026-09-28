@@ -57,16 +57,32 @@ interactiva en `http://localhost:8000/docs`.
 
 ## Configurar Supabase
 
-1. Crear un proyecto en [supabase.com](https://supabase.com).
-2. Abrir el **SQL editor** y ejecutar `supabase/schema.sql` (crea las
-   tablas `players` y `upgrades`, las políticas RLS y el catálogo inicial
-   de mejoras).
-3. En **Authentication → Providers**, habilitar Google y configurar el
+El proyecto usa la estructura estándar del CLI de Supabase
+(`supabase/config.toml` + `supabase/migrations/*.sql`) para poder conectar
+el repo directamente desde el dashboard ("Connect GitHub") y que Supabase
+aplique las migraciones automáticamente en cada push, en vez de pegar SQL
+a mano.
+
+1. Al crear el proyecto en [supabase.com](https://supabase.com), usa la
+   opción **Connect GitHub** del asistente (o después en
+   **Project Settings → Integrations → GitHub Connection**) y selecciona
+   este repositorio. Supabase detecta `supabase/` en la raíz y aplica
+   `supabase/migrations/20260927234517_init_schema.sql` (tablas `players`
+   y `upgrades`, políticas RLS y catálogo inicial de mejoras) contra la
+   rama que seleccionaste como producción (normalmente `main`).
+   - Si prefieres no conectar GitHub todavía, también puedes copiar el
+     contenido de esa migración en el **SQL editor** del dashboard y
+     ejecutarlo manualmente una vez.
+   - Cambios futuros al esquema van en **archivos de migración nuevos**
+     dentro de `supabase/migrations/` (no se edita el archivo inicial una
+     vez aplicado), para que el historial quede versionado igual que el
+     resto del código.
+2. En **Authentication → Providers**, habilitar Google y configurar el
    Client ID/Secret de un proyecto en Google Cloud Console (pantalla de
    consentimiento OAuth + credenciales web).
-4. En **Authentication → URL Configuration**, agregar como *Redirect URL*
+3. En **Authentication → URL Configuration**, agregar como *Redirect URL*
    tanto `http://localhost:5173` (dev) como la URL final de GitHub Pages.
-5. Tomar de **Project Settings → API**:
+4. Tomar de **Project Settings → API**:
    - `Project URL` → `SUPABASE_URL` / `VITE_SUPABASE_URL`
    - `anon public` key → `VITE_SUPABASE_ANON_KEY`
    - `service_role` key → `SUPABASE_SERVICE_ROLE_KEY` (solo backend, nunca
