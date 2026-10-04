@@ -80,25 +80,28 @@
 
                 <!-- vapor -->
                 <g class="steam">
-                  <circle class="steam-puff steam-1" cx="212" cy="96" r="7" fill="#ffffff" />
-                  <circle class="steam-puff steam-2" cx="222" cy="92" r="5" fill="#ffffff" />
-                  <circle class="steam-puff steam-3" cx="202" cy="90" r="5" fill="#ffffff" />
+                  <circle class="steam-puff steam-1" cx="212" cy="94" r="10" fill="#ffffff" />
+                  <circle class="steam-puff steam-2" cx="226" cy="88" r="8" fill="#ffffff" />
+                  <circle class="steam-puff steam-3" cx="196" cy="86" r="8" fill="#ffffff" />
+                  <circle class="steam-puff steam-4" cx="212" cy="80" r="6" fill="#ffffff" />
                 </g>
 
-                <!-- chorro de cafe -->
-                <line id="stream" x1="212" y1="174" x2="212" y2="196" stroke="#6b3f1d" stroke-width="4" stroke-linecap="round" />
-
-                <!-- taza -->
-                <rect x="168" y="200" width="88" height="6" rx="2" fill="#3c261a" />
-                <path d="M194 198 L230 198 L226 222 a18 10 0 0 1 -28 0 Z" fill="#fffaf2" stroke="#e3d5c2" stroke-width="2" />
-                <path d="M230 202 q14 0 14 10 q0 10 -14 10" fill="none" stroke="#fffaf2" stroke-width="5" />
-
-                <!-- portafiltro -->
+                <!-- portafiltro (se dibuja antes para que el chorro quede visible encima) -->
                 <g id="portafilter">
                   <circle cx="212" cy="178" r="13" fill="#2c1b10" />
                   <rect x="158" y="174" width="56" height="8" rx="4" fill="#2c1b10" />
                   <circle cx="160" cy="178" r="7" fill="#1f130b" />
                 </g>
+
+                <!-- chorro de cafe -->
+                <line id="stream" x1="212" y1="189" x2="212" y2="198" stroke="#4a2a12" stroke-width="8" stroke-linecap="round" />
+                <line id="stream-highlight" x1="209" y1="189" x2="209" y2="198" stroke="#c99356" stroke-width="2.5" stroke-linecap="round" />
+
+                <!-- taza -->
+                <rect x="168" y="200" width="88" height="6" rx="2" fill="#3c261a" />
+                <path d="M194 198 L230 198 L226 222 a18 10 0 0 1 -28 0 Z" fill="#fffaf2" stroke="#e3d5c2" stroke-width="2" />
+                <path d="M230 202 q14 0 14 10 q0 10 -14 10" fill="none" stroke="#fffaf2" stroke-width="5" />
+                <ellipse id="splash" cx="212" cy="200" rx="16" ry="6" fill="#4a2a12" />
               </g>
             </svg>
           </button>
