@@ -21,10 +21,89 @@
           </div>
 
           <button id="brew-button" class="brew-button" type="button" aria-label="Preparar café">
-            Preparar café
+            <svg class="coffee-scene" viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="machineGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#9a6a45" />
+                  <stop offset="1" stop-color="#7a4f31" />
+                </linearGradient>
+                <linearGradient id="counterGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#d9a765" />
+                  <stop offset="1" stop-color="#c3904f" />
+                </linearGradient>
+              </defs>
+
+              <!-- planta -->
+              <g class="decor">
+                <path d="M30 206 L66 206 L60 180 L36 180 Z" fill="#a9754f" />
+                <path d="M48 180 C 20 170, 18 130, 42 118 C 40 150, 48 165, 48 180 Z" fill="#4c7a4a" />
+                <path d="M48 180 C 70 165, 76 130, 54 112 C 58 145, 50 165, 48 180 Z" fill="#5c8f56" />
+                <path d="M48 180 C 34 155, 54 140, 48 118 C 60 140, 58 160, 48 180 Z" fill="#6ea565" />
+              </g>
+
+              <!-- repisa de ingredientes -->
+              <g class="decor">
+                <rect x="300" y="196" width="104" height="10" rx="2" fill="#a9754f" />
+                <rect x="308" y="150" width="20" height="46" rx="6" fill="#d1495b" />
+                <rect x="314" y="140" width="8" height="12" rx="2" fill="#4a3225" />
+                <rect x="336" y="156" width="20" height="40" rx="6" fill="#e0a458" />
+                <rect x="342" y="146" width="8" height="12" rx="2" fill="#4a3225" />
+                <rect x="364" y="150" width="20" height="46" rx="6" fill="#6a8caf" />
+                <rect x="370" y="140" width="8" height="12" rx="2" fill="#4a3225" />
+                <rect x="300" y="176" width="2" height="20" fill="#00000022" />
+              </g>
+              <g class="decor">
+                <rect x="300" y="168" width="40" height="28" rx="4" fill="#cfeeff" stroke="#bcdcee" stroke-width="2" />
+                <rect x="306" y="162" width="6" height="10" rx="1" fill="#ffffff" />
+                <rect x="316" y="160" width="6" height="12" rx="1" fill="#ffffff" />
+                <rect x="326" y="163" width="6" height="9" rx="1" fill="#ffffff" />
+              </g>
+
+              <!-- mostrador -->
+              <rect x="0" y="206" width="420" height="20" fill="url(#counterGrad)" />
+              <rect x="0" y="226" width="420" height="94" fill="#4a3225" />
+              <rect x="20" y="246" width="70" height="54" rx="6" fill="#5c3b26" />
+              <circle cx="55" cy="273" r="4" fill="#d8c9a3" />
+              <rect x="110" y="246" width="70" height="54" rx="6" fill="#5c3b26" />
+              <circle cx="145" cy="273" r="4" fill="#d8c9a3" />
+
+              <!-- maquina de espresso -->
+              <g id="espresso-machine">
+                <rect x="150" y="150" width="130" height="58" rx="10" fill="url(#machineGrad)" />
+                <rect x="168" y="108" width="94" height="46" rx="10" fill="#5e3b22" />
+                <circle cx="190" cy="131" r="8" fill="#6f4a2d" stroke="#d8c9a3" stroke-width="2" />
+                <circle cx="240" cy="131" r="8" fill="#6f4a2d" stroke="#d8c9a3" stroke-width="2" />
+                <path d="M262 118 h20 a6 6 0 0 1 6 6 v4 a6 6 0 0 1 -6 6 h-10 v10 h-6 z" fill="#4a3225" />
+
+                <rect x="196" y="152" width="32" height="14" rx="3" fill="#3c261a" />
+                <rect x="206" y="166" width="12" height="8" fill="#3c261a" />
+
+                <!-- vapor -->
+                <g class="steam">
+                  <circle class="steam-puff steam-1" cx="212" cy="96" r="7" fill="#ffffff" />
+                  <circle class="steam-puff steam-2" cx="222" cy="92" r="5" fill="#ffffff" />
+                  <circle class="steam-puff steam-3" cx="202" cy="90" r="5" fill="#ffffff" />
+                </g>
+
+                <!-- chorro de cafe -->
+                <line id="stream" x1="212" y1="174" x2="212" y2="196" stroke="#6b3f1d" stroke-width="4" stroke-linecap="round" />
+
+                <!-- taza -->
+                <rect x="168" y="200" width="88" height="6" rx="2" fill="#3c261a" />
+                <path d="M194 198 L230 198 L226 222 a18 10 0 0 1 -28 0 Z" fill="#fffaf2" stroke="#e3d5c2" stroke-width="2" />
+                <path d="M230 202 q14 0 14 10 q0 10 -14 10" fill="none" stroke="#fffaf2" stroke-width="5" />
+
+                <!-- portafiltro -->
+                <g id="portafilter">
+                  <circle cx="212" cy="178" r="13" fill="#2c1b10" />
+                  <rect x="158" y="174" width="56" height="8" rx="4" fill="#2c1b10" />
+                  <circle cx="160" cy="178" r="7" fill="#1f130b" />
+                </g>
+              </g>
+            </svg>
           </button>
 
-          <p class="hint">Fuerza de clic: <span id="click-power-display">1</span></p>
+          <p class="hint">Toca la máquina para preparar café · Fuerza de clic: <span id="click-power-display">1</span></p>
         </section>
 
         <section class="shop-panel">

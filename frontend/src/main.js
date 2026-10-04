@@ -109,11 +109,18 @@ function spawnFloatingGain(amount, clientX, clientY) {
   setTimeout(() => el.remove(), 700);
 }
 
+function playBrewAnimation() {
+  brewButton.classList.remove('is-brewing');
+  void brewButton.offsetWidth; // fuerza reflow para poder reiniciar la animación en clics seguidos
+  brewButton.classList.add('is-brewing');
+}
+
 brewButton.addEventListener('click', (event) => {
   state.coins += state.click_power;
   markDirty();
   renderStats();
   renderShop();
+  playBrewAnimation();
   spawnFloatingGain(state.click_power, event.clientX, event.clientY);
 });
 
