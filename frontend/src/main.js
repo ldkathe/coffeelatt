@@ -19,6 +19,7 @@ let state = loadLocalState();
 let catalog = [];
 let session = null;
 let dirty = false;
+let catalogStatus = 'loading'; // 'loading' | 'error' | 'ready'
 
 function formatNumber(value) {
   return Math.floor(value).toLocaleString('es');
@@ -32,6 +33,16 @@ function renderStats() {
 
 function renderShop() {
   shopList.innerHTML = '';
+
+  if (catalogStatus === 'loading') {
+    shopList.innerHTML = '<p class="shop-status">Cargando mejoras…</p>';
+    return;
+  }
+
+  if (catalogStatus === 'error') {
+    shopList.innerHTML = '<p class="shop-status">No se pudo conectar con el servidor. Reintentando…</p>';
+    return;
+  }
 
   for (const upgrade of catalog) {
     const level = state.upgrades[upgrade.id] || 0;
@@ -124,14 +135,23 @@ brewButton.addEventListener('click', (event) => {
   spawnFloatingGain(state.click_power, event.clientX, event.clientY);
 });
 
-async function loadCatalog() {
+async function loadCatalog(attempt = 1) {
   try {
     catalog = await fetchShopItems();
+    catalogStatus = 'ready';
+    applyUpgradeEffects(state, catalog);
+    renderAll();
   } catch (error) {
     console.error('No se pudo cargar el catálogo de mejoras desde el backend', error);
-    catalog = [];
+
+    if (attempt < 4) {
+      // El backend gratuito de Render puede tardar ~50s en despertar; reintenta con backoff.
+      setTimeout(() => loadCatalog(attempt + 1), 5000 * attempt);
+    } else {
+      catalogStatus = 'error';
+      renderShop();
+    }
   }
-  applyUpgradeEffects(state, catalog);
 }
 
 async function syncFromServer() {
@@ -185,9 +205,15 @@ function startGameLoop() {
 }
 
 async function init() {
-  await loadCatalog();
-  session = await getSession();
   renderAll();
+  startGameLoop();
+
+  const catalogPromise = loadCatalog();
+
+  session = await getSession();
+  renderAuthBox();
+
+  await catalogPromise;
   await syncFromServer();
 
   onAuthStateChange(async (nextSession) => {
@@ -195,8 +221,6 @@ async function init() {
     renderAuthBox();
     await syncFromServer();
   });
-
-  startGameLoop();
 }
 
 init();
